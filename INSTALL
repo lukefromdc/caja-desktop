@@ -1,0 +1,16 @@
+Surest way to build this is to get the git snapshot of GNOME/nautilus from April 26, 2016 
+and replace main-desktop.c and nautilus-desktop-canvas-view.c with the files from this package,
+then build Nautilus normally but do not install it. Nautilus itself must be already installed to
+run this so alternately build from the original tarball, install, switch these files and build again.
+
+Then go to nautilus/desktop/.libs and rename the nautilus-desktop binary caja-desktop. drop that into 
+/usr/bin. /usr/local/bin or wherever you put out binaries, and the .desktop file into /etc/XDG/autostart.
+Alternately load a .deb or RPM with the binary and the desktop file, then install it. 
+
+In your mate session turn compositing ON and Caja's own desktop icons OFF. Enjoy icons on the desktop
+that work right with GTK 3.21.3 or later until the issue in Caja can be found and fixed right. This is
+a WORKAROUND but it makes GTK 3.21.3 usuable in Caja for now.
+
+To build against later versions of Nautilus, find the references to "mate" in the files and apply the code
+changes bearing them to current Nautilus, then build. The version used must build nautilus-desktop as a 
+separate binary. This change came AFTER the 3.20.0 release!
