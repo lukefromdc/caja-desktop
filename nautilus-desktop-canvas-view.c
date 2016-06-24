@@ -68,9 +68,6 @@ static void     default_zoom_level_changed                        (gpointer     
 static void     real_update_context_menus                         (NautilusFilesView           *view);
 static char*    real_get_backing_uri                              (NautilusFilesView           *view);
 static void     real_check_empty_states                           (NautilusFilesView           *view);
-static char *   real_get_file_paths_or_uris_as_newline_delimited_string (NautilusFilesView *view,
-                                                                         GList             *selection,
-                                                                         gboolean           get_paths);
 static void     nautilus_desktop_canvas_view_update_canvas_container_fonts  (NautilusDesktopCanvasView      *view);
 static void     font_changed_callback                             (gpointer                callback_data);
 
@@ -429,62 +426,17 @@ nautilus_desktop_canvas_view_update_canvas_container_fonts (NautilusDesktopCanva
 static const gchar *
 get_control_center_command (const gchar ** params_out)
 {
-	gchar *path;
 	const gchar *retval;
 	const gchar *params;
-	const gchar *xdg_current_desktop;
-	gchar **desktop_names;
-	gboolean is_unity;
-	int i;
 
-	path = NULL;
 	retval = NULL;
 	params = NULL;
 
-	xdg_current_desktop = g_getenv ("XDG_CURRENT_DESKTOP");
-
-	/* Detect the Unity-based environments */
-	is_unity = FALSE;
-	if (xdg_current_desktop != NULL) {
-		desktop_names = g_strsplit (xdg_current_desktop, ":", 0);
-		for (i = 0; desktop_names[i]; ++i) {
-			if (!g_strcmp0 (desktop_names[i], "Unity")) {
-				is_unity = TRUE;
-				break;
-			}
-		}
-		g_strfreev (desktop_names);
-	}
-
-	/* In Unity look for unity-control-center */
-	if (is_unity) {
-		path = g_find_program_in_path ("unity-control-center");
-		if (path != NULL) {
-			retval = "unity-control-center";
-			params = "appearance";
-			goto out;
-		}
-	}
-
-	/* In MATE look for mate-control-center */
-	if (is_unity) {
-		path = g_find_program_in_path ("mate-appearance-properties");
-		if (path != NULL) {
-			retval = "mate-appearance-properties";
-			params = "background";
-			goto out;
-		}
-	}
-
-	/* Otherwise look for gnome-control-center */
-	path = g_find_program_in_path ("gnome-control-center");
-	if (path != NULL) {
-		retval = "gnome-control-center";
+	/* hardcode mate-control-center as bg otherwise cannot be changed in MATE */
+		retval = "mate-appearance-properties";
 		params = "background";
-	}
 
  out:
-	g_free (path);
 	if (params_out != NULL) {
 		*params_out = params;
 	}
