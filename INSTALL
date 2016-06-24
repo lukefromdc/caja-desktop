@@ -7,8 +7,7 @@ Then go to nautilus/desktop/.libs and rename the nautilus-desktop binary caja-de
 /usr/bin. /usr/local/bin or wherever you put out binaries, and the .desktop file into /etc/XDG/autostart.
 Alternately load a .deb or RPM with the binary and the desktop file, then install it. 
 
-In your mate session turn compositing ON and Caja's own desktop icons OFF. Enjoy icons on the desktop
-that work right with GTK 3.21.3 or later until the issue in Caja can be found and fixed right. This is
+In your mate session turn compositing ON , desktop icons in Nautilus/GNOME ON, and Caja's own desktop icons OFF. Enjoy icons on the desktop that work right with GTK 3.21.3 or later until the issue in Caja can be found and fixed right. This is
 a WORKAROUND but it makes GTK 3.21.3 usuable in Caja for now.
 
 To build against later versions of Nautilus, find the references to "mate" in the files and apply the code
