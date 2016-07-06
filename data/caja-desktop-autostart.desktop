@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Files
+Exec=caja-desktop
+OnlyShowIn=MATE;
+
+Name[en_US]=caja-desktop-autostart.desktop
